@@ -2,7 +2,7 @@ import os
 import psycopg2 as psql
 import pandas as pd
 
-print(f'current directory : {os.getcwd()}')
+
 
 conn = psql.connect(host="db01.postgres.database.azure.com", dbname="fielddata_dev", user="pp_fabien", password="9N9GNK78TyXQtls6")
 conn.set_client_encoding('utf-8')
@@ -29,8 +29,8 @@ for i in range(0,df_dirs.shape[0]) :
     subproject = str(df_dirs.iloc[i]["subprojectid"]) + "_" + str(df_dirs.iloc[i]["subprojectname"])
     wave = str(df_dirs.iloc[i]["waveid"]) + "_" + str(df_dirs.iloc[i]["wavename"])
 
-    newdir_to_insert = f"{os.getcwd()}\\tracks\\to_insert\\{region}\\{project}\\{subproject}\\{wave}"
-    newdir_archives = f"{os.getcwd()}\\tracks\\archives\\{region}\\{project}\\{subproject}\\{wave}"
+    newdir_to_insert = f"C:\Users\Fabien\Documents\GitHub\insert_ext_tracks\\tracks\\to_insert\\{region}\\{project}\\{subproject}\\{wave}"
+    newdir_archives = f"C:\Users\Fabien\Documents\GitHub\insert_ext_tracks\\tracks\\archives\\{region}\\{project}\\{subproject}\\{wave}"
 
     os.makedirs(newdir_to_insert, exist_ok=True)
     os.makedirs(newdir_archives, exist_ok=True)
