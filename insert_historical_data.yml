@@ -1,4 +1,4 @@
-name: insert_historical_data
+name: insert_ext_tracks
 channels:
   - anaconda
   - conda-forge
