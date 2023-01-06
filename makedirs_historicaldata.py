@@ -23,14 +23,45 @@ df_dirs = pd.read_sql(query, conn)
 
 print(df_dirs)
 
+'''
+dirs_to_insert = []
+dirs_archives = []
 for i in range(0,df_dirs.shape[0]) :
-    region = str(df_dirs.iloc[i]["regionid"]) + "_" + str(df_dirs.iloc[i]["regionname"])
-    project = str(df_dirs.iloc[i]["projectid"]) + "_" + str(df_dirs.iloc[i]["projectname"])
-    subproject = str(df_dirs.iloc[i]["subprojectid"]) + "_" + str(df_dirs.iloc[i]["subprojectname"])
-    wave = str(df_dirs.iloc[i]["waveid"]) + "_" + str(df_dirs.iloc[i]["wavename"])
+    regionid = int(df_dirs.iloc[i]["regionid"])
+    regionname = df_dirs.iloc[i]["regionname"]
+    projectid = int(df_dirs.iloc[i]["projectid"])
+    projectname = df_dirs.iloc[i]["projectname"]
+    subprojectid = int(df_dirs.iloc[i]["subprojectid"])
+    subprojectname = df_dirs.iloc[i]["subprojectname"]
+    projectwaveid = int(df_dirs.iloc[i]["projectwaveid"])
+    waveid = int(df_dirs.iloc[i]["waveid"])
+    wavename = df_dirs.iloc[i]["wavename"]
 
-    newdir_to_insert = f"C:\Users\Fabien\Documents\GitHub\insert_ext_tracks\\tracks\\to_insert\\{region}\\{project}\\{subproject}\\{wave}"
-    newdir_archives = f"C:\Users\Fabien\Documents\GitHub\insert_ext_tracks\\tracks\\archives\\{region}\\{project}\\{subproject}\\{wave}"
+    region_folder = str(regionid) + '_' + regionname
+    project_folder = str(projectid) + '_' + projectname
+    subproject_folder = str(subprojectid) + '_' + subprojectname
+    wave_folder = str(waveid) + '_' + wavename
+
+    newdir_to_insert = f"C:\Users\Fabien\Documents\GitHub\insert_ext_tracks\\tracks\\to_insert\\{region_folder}\\{project_folder}\\{subproject_folder}\\{wave_folder}"
+    newdir_to_insert_no_wave = f"C:\Users\Fabien\Documents\GitHub\insert_ext_tracks\\tracks\\to_insert\\{region_folder}\\{project_folder}\\{subproject_folder}\\X_nowave"
+    newdir_archives = f"C:\Users\Fabien\Documents\GitHub\insert_ext_tracks\\tracks\\archives\\{region_folder}\\{project_folder}\\{subproject_folder}\\{wave_folder}"
+    newdir_archives_no_wave = f"C:\Users\Fabien\Documents\GitHub\insert_ext_tracks\\tracks\\archives\\{region_folder}\\{project_folder}\\{subproject_folder}\\X_nowave"
+
+    dirs_to_insert.append(newdir_to_insert)
+    dirs_to_insert.append(newdir_to_insert_no_wave)
+    dirs_archives.append(newdir_archives)
+    dirs_archives.append(newdir_archives_no_wave)
 
     os.makedirs(newdir_to_insert, exist_ok=True)
+    os.makedirs(newdir_to_insert_no_wave, exist_ok=True)
     os.makedirs(newdir_archives, exist_ok=True)
+    os.makedirs(newdir_archives_no_wave, exist_ok=True)
+
+for i in dirs_to_insert :
+        
+        pbar = tqdm(os.listdir(i))
+
+        for files in pbar :
+            print(i + files)
+            pbar.set_description(f'Processing {regionname}-{projectname}-{wavename}-{files}')
+'''
