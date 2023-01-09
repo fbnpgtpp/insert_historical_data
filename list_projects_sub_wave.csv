@@ -1,0 +1,134 @@
+,regionid,regionname,projectid,projectname,subprojectid,subprojectname,waveid,wavename,projectwaveid,nespresso
+0,2,asia & pacific,2,kbqb,2,,2,w-15,2,False
+1,2,asia & pacific,2,kbqb,2,,3,w-16,3,False
+2,2,asia & pacific,2,kbqb,2,,4,w-19,4,False
+3,3,europe,3,mihai eminescu trust,3,,3,w-16,5,False
+4,3,europe,3,mihai eminescu trust,3,,5,w-17,6,False
+5,3,europe,3,mihai eminescu trust,3,,1,w-20,7,False
+6,1,africa,5,rwenzori,5,,2,w-15,11,True
+7,1,africa,6,sidama,6,,2,w-15,15,True
+8,1,africa,6,sidama,6,,3,w-16,16,True
+9,1,africa,6,sidama,6,,1,w-20,18,True
+10,3,europe,3,mihai eminescu trust,3,,6,w-18,19,False
+11,3,europe,3,mihai eminescu trust,3,,4,w-19,20,False
+12,5,latin america,1,frajianes,1,,2,w-15,21,True
+13,3,europe,3,mihai eminescu trust,3,,8,w-14,23,False
+14,3,europe,3,mihai eminescu trust,3,,2,w-15,24,False
+15,5,latin america,1,frajianes,1,,6,w-18,26,True
+16,5,latin america,1,frajianes,1,,4,w-19,27,True
+17,2,asia & pacific,2,kbqb,2,,9,w-13,28,False
+18,2,asia & pacific,2,kbqb,2,,8,w-14,29,False
+19,2,asia & pacific,2,kbqb,2,,5,w-17,30,False
+20,3,europe,3,mihai eminescu trust,3,,9,w-13,31,False
+21,5,latin america,30,coffee for peace,31,,4,w-19,145,True
+22,5,latin america,30,coffee for peace,31,,6,w-18,146,True
+23,5,latin america,1,frajianes,1,,6,w-18,35,True
+24,3,europe,8,aiab,8,,3,w-16,36,False
+25,3,europe,8,aiab,8,,5,w-17,37,False
+26,3,europe,8,aiab,8,,6,w-18,38,False
+27,2,asia & pacific,9,alter trade,9,,3,w-16,39,False
+28,2,asia & pacific,9,alter trade,9,,8,w-14,40,False
+29,2,asia & pacific,9,alter trade,9,,5,w-17,41,False
+30,5,latin america,10,aprosacao,10,,5,w-17,42,False
+31,5,latin america,10,aprosacao,10,,6,w-18,43,False
+32,5,latin america,10,aprosacao,10,,4,w-19,44,False
+33,5,latin america,10,aprosacao,10,,3,w-16,45,False
+34,2,asia & pacific,11,darjeeling,11,,3,w-16,46,False
+35,2,asia & pacific,11,darjeeling,11,,2,w-15,47,False
+36,2,asia & pacific,11,darjeeling,11,,8,w-14,48,False
+37,1,africa,12,diana,12,,5,w-17,49,False
+38,1,africa,12,diana,12,,6,w-18,50,False
+39,1,africa,12,diana,12,,4,w-19,51,False
+40,2,asia & pacific,11,darjeeling,11,,6,w-18,52,False
+41,3,europe,13,espana organica,13,,9,w-13,53,False
+42,3,europe,13,espana organica,13,,8,w-14,54,False
+43,3,europe,13,espana organica,13,,2,w-15,55,False
+44,3,europe,13,espana organica,13,,3,w-16,56,False
+45,3,europe,13,espana organica,13,,1,w-20,57,False
+46,3,europe,13,espana organica,13,,5,w-17,58,False
+47,3,europe,13,espana organica,13,,4,w-19,59,False
+48,3,europe,13,espana organica,13,,6,w-18,60,False
+49,2,asia & pacific,14,greening australia,14,,6,w-18,61,False
+50,2,asia & pacific,14,greening australia,14,,5,w-17,62,False
+51,2,asia & pacific,14,greening australia,14,,4,w-19,63,False
+52,1,africa,15,ivory coast,15,,4,w-19,64,False
+53,1,africa,15,ivory coast,15,,1,w-20,65,False
+54,5,latin america,17,cauca y narino,16,,3,w-16,67,True
+55,5,latin america,17,cauca y narino,16,,2,w-15,68,True
+56,5,latin america,17,cauca y narino,16,,5,w-17,69,True
+57,5,latin america,17,cauca y narino,16,,6,w-18,70,True
+58,5,latin america,17,cauca y narino,16,,4,w-19,71,True
+59,5,latin america,17,cauca y narino,16,,1,w-20,72,True
+60,5,latin america,17,cauca y narino,18,,2,w-15,76,True
+61,5,latin america,17,cauca y narino,18,,3,w-16,77,True
+62,5,latin america,17,cauca y narino,18,,5,w-17,78,True
+63,5,latin america,17,cauca y narino,18,,4,w-19,80,True
+64,5,latin america,17,cauca y narino,18,,1,w-20,81,True
+65,5,latin america,23,jubilacion segura,19,,1,w-20,82,False
+66,5,latin america,23,jubilacion segura,20,,1,w-20,83,False
+67,5,latin america,23,jubilacion segura,19,,4,w-19,84,False
+68,5,latin america,23,jubilacion segura,20,,4,w-19,85,False
+69,5,latin america,23,jubilacion segura,19,,6,w-18,86,False
+70,5,latin america,23,jubilacion segura,20,,6,w-18,87,False
+71,5,latin america,23,jubilacion segura,21,,6,w-18,88,False
+72,5,latin america,23,jubilacion segura,22,,5,w-17,89,False
+73,5,latin america,23,jubilacion segura,22,,3,w-16,90,False
+74,5,latin america,23,jubilacion segura,22,,2,w-15,91,False
+75,5,latin america,23,jubilacion segura,21,,8,w-14,92,False
+76,5,latin america,23,jubilacion segura,22,,8,w-14,93,False
+77,5,latin america,23,jubilacion segura,22,,6,w-18,94,False
+78,5,latin america,23,jubilacion segura,22,,4,w-19,95,False
+79,5,latin america,23,jubilacion segura,22,,1,w-20,96,False
+80,5,latin america,23,jubilacion segura,22,,10,w-12,97,False
+81,5,latin america,23,jubilacion segura,22,,9,w-13,98,False
+82,5,latin america,23,jubilacion segura,22,,11,w-10,99,False
+83,5,latin america,23,jubilacion segura,22,,12,w-11,100,False
+84,5,latin america,23,jubilacion segura,23,,8,w-14,101,False
+85,5,latin america,23,jubilacion segura,23,,13,w-8,102,False
+86,5,latin america,23,jubilacion segura,23,,14,w-9,103,False
+87,5,latin america,23,jubilacion segura,23,,11,w-10,104,False
+88,5,latin america,23,jubilacion segura,23,,12,w-11,105,False
+89,5,latin america,23,jubilacion segura,23,,10,w-12,106,False
+90,5,latin america,23,jubilacion segura,23,,9,w-13,107,False
+91,1,africa,5,rwenzori,5,,3,w-16,108,True
+92,1,africa,5,rwenzori,5,,5,w-17,109,True
+93,1,africa,5,rwenzori,5,,6,w-18,110,True
+94,1,africa,5,rwenzori,5,,4,w-19,111,True
+95,5,latin america,1,frajianes,1,,5,w-17,112,True
+96,5,latin america,4,pintze,4,,5,w-17,113,True
+97,5,latin america,7,la giorgia,7,,1,w-20,114,True
+98,5,latin america,7,la giorgia,7,,7,w-21,115,True
+99,1,africa,5,rwenzori,5,,1,w-20,116,True
+100,1,africa,5,rwenzori,5,,7,w-21,117,True
+101,5,latin america,27,nuestra huella,26,,15,w-22,123,False
+102,5,latin america,1,frajianes,1,,1,w-20,125,True
+103,5,latin america,1,frajianes,1,,7,w-21,126,True
+104,5,latin america,4,pintze,4,,6,w-18,127,True
+105,5,latin america,4,pintze,4,,4,w-19,128,True
+106,5,latin america,4,pintze,4,,1,w-20,129,True
+107,5,latin america,4,pintze,4,,7,w-21,130,True
+108,5,latin america,17,cauca y narino,16,,2,w-15,122,True
+109,1,africa,6,sidama,6,,4,w-19,137,True
+110,5,latin america,30,coffee for peace,31,,7,w-21,147,True
+111,1,africa,6,sidama,6,,6,w-18,138,True
+112,5,latin america,4,pintze,4,,8,w-14,150,True
+113,5,latin america,17,cauca y narino,16,,3,w-16,133,True
+114,1,africa,6,sidama,6,,5,w-17,153,True
+115,5,latin america,17,cauca y narino,16,,6,w-18,135,True
+116,5,latin america,17,cauca y narino,16,,4,w-19,136,True
+117,5,latin america,4,pintze,4,,3,w-16,140,True
+118,5,latin america,17,cauca y narino,16,,5,w-17,141,True
+119,5,latin america,17,cauca y narino,18,,7,w-21,142,True
+120,5,latin america,17,cauca y narino,18,,6,w-18,143,True
+121,5,latin america,30,coffee for peace,31,,1,w-20,144,True
+122,5,latin america,17,cauca y narino,18,,4,w-19,154,True
+123,5,latin america,4,pintze,4,,2,w-15,152,True
+124,5,latin america,17,cauca y narino,16,,7,w-21,156,True
+125,5,latin america,1,frajianes,1,,15,w-22,161,True
+126,5,latin america,7,la giorgia,7,,15,w-22,164,True
+127,5,latin america,4,pintze,4,,15,w-22,165,True
+128,1,africa,6,sidama,6,,7,w-21,171,True
+129,5,latin america,30,coffee for peace,31,,1,w-20,159,True
+130,2,asia & pacific,28,aceh,27,,7,w-21,172,True
+131,5,latin america,17,cauca y narino,16,,8,w-14,173,True
+132,5,latin america,7,la giorgia,7,,4,w-19,174,True

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document><Folder><name>Comănești_60B</name>
+<Schema name="Comănești_60B" id="Comănești_60B">
+	<SimpleField name="Name" type="string"></SimpleField>
+	<SimpleField name="Description" type="string"></SimpleField>
+	<SimpleField name="name" type="string"></SimpleField>
+	<SimpleField name="number" type="int"></SimpleField>
+	<SimpleField name="comment" type="string"></SimpleField>
+	<SimpleField name="description" type="string"></SimpleField>
+	<SimpleField name="source" type="string"></SimpleField>
+	<SimpleField name="url" type="string"></SimpleField>
+	<SimpleField name="url name" type="string"></SimpleField>
+</Schema>
+  <Placemark>
+	<name>Homorod Kemef</name>
+	<description></description>
+	<Style><LineStyle><color>ff0000ff</color></LineStyle><PolyStyle><fill>0</fill></PolyStyle></Style>
+	<ExtendedData><SchemaData schemaUrl="#Comănești_60B">
+		<SimpleData name="Name">Homorod Kemef</SimpleData>
+		<SimpleData name="Description"></SimpleData>
+		<SimpleData name="number">0</SimpleData>
+		<SimpleData name="comment"></SimpleData>
+		<SimpleData name="source"></SimpleData>
+		<SimpleData name="url"></SimpleData>
+		<SimpleData name="url name"></SimpleData>
+	</SchemaData></ExtendedData>
+      <LineString><coordinates>25.46414129,46.29189914 25.46439677,46.29242954 25.4642091,46.29218613 25.46380978,46.29229946 25.46228017,46.29322306 25.46163929,46.2933539 25.46090696,46.2930892 25.46070555,46.29322197 25.46076548,46.29257799 25.46101266,46.29248444 25.46112129,46.29280698 25.46217858,46.29276423 25.4624727,46.29253993 25.46242484,46.29204297 25.46085717,46.29165975 25.46050882,46.29128105 25.46121005,46.29136253 25.46166603,46.29175949 25.46233775,46.29155489 25.46382177,46.29201556 25.46413718,46.2918413</coordinates></LineString>
+  </Placemark>
+</Folder></Document></kml>

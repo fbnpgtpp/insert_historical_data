@@ -37,17 +37,17 @@ print("Connected to DB")
 projectwaves_query = "SELECT * FROM \"HistoricalData\".projectwaves"
 parcelwave_query = "SELECT id, lower(replace(replace(replace(gpsfilename, '_',''),' ',''),'-','')) as gpsfilename FROM \"HistoricalData\".parcelwaves"
 
-gpsextfiles_query = "SELECT filejson FROM \"HistoricalData\".gpsextfiles as g1\
+gpsextfiles_query = "SELECT filejson FROM \"HistoricalData\".gpsextfiles2 as g1\
                     join \"HistoricalData\".projects p on g1.projectid = p.id"
 gpsexttracks_query = "SELECT gpsname, gps FROM\
-                    \"HistoricalData\".gpsexttracks as g\
-                    join \"HistoricalData\".gpsextfiles as g1 on g.fileid = g1.id\
+                    \"HistoricalData\".gpsexttracks2 as g\
+                    join \"HistoricalData\".gpsextfiles2 as g1 on g.fileid = g1.id\
                     join \"HistoricalData\".projects p on g1.projectid = p.id"
 
 dirs_query = "select r.id regionid, r.regionname, \
             p.id projectid, p.projectname, \
             s.id subprojectid, s.subprojectname, \
-            p2.id projectwaveid \
+            p2.id projectwaveid, \
             w.id waveid, w.wavename  \
             from \"HistoricalData\".projects p \
             join \"HistoricalData\".subprojects s on p.id = s.projectid \
@@ -79,13 +79,13 @@ for i in range(0,df_dirs.shape[0]) :
 
     region_folder = str(regionid) + '_' + regionname
     project_folder = str(projectid) + '_' + projectname
-    subproject_folder = str(subprojectid) + '_' + subprojectname
+    subproject_folder = str(subprojectid) + '_' + str(subprojectname)
     wave_folder = str(waveid) + '_' + wavename
 
-    newdir_to_insert = f"C:\Users\Fabien\Documents\GitHub\insert_ext_tracks\\tracks\\to_insert\\{region_folder}\\{project_folder}\\{subproject_folder}\\{wave_folder}"
-    newdir_to_insert_no_wave = f"C:\Users\Fabien\Documents\GitHub\insert_ext_tracks\\tracks\\to_insert\\{region_folder}\\{project_folder}\\{subproject_folder}\\X_nowave"
-    newdir_archives = f"C:\Users\Fabien\Documents\GitHub\insert_ext_tracks\\tracks\\archives\\{region_folder}\\{project_folder}\\{subproject_folder}\\{wave_folder}"
-    newdir_archives_no_wave = f"C:\Users\Fabien\Documents\GitHub\insert_ext_tracks\\tracks\\archives\\{region_folder}\\{project_folder}\\{subproject_folder}\\X_nowave"
+    newdir_to_insert = os.path.join("tracks","to_insert",region_folder,project_folder,subproject_folder,wave_folder)
+    newdir_to_insert_no_wave = os.path.join("tracks","to_insert",region_folder,project_folder,subproject_folder,"X_nowave")
+    newdir_archives = os.path.join("tracks","archives",region_folder,project_folder,subproject_folder,wave_folder)
+    newdir_archives_no_wave = os.path.join("tracks","archives",region_folder,project_folder,subproject_folder,"X_nowave")
 
     dirs_to_insert.append(newdir_to_insert)
     dirs_to_insert.append(newdir_to_insert_no_wave)
@@ -97,35 +97,41 @@ for i in range(0,df_dirs.shape[0]) :
     os.makedirs(newdir_archives, exist_ok=True)
     os.makedirs(newdir_archives_no_wave, exist_ok=True)
 
-#define historicaldata projects list
-#dictprojet_historicaldata = {
-#        "africa" : ["diana","ivory coast","rwenzori","sidama"],
-#        "asia & pacific" : ["aceh","alter trade","darjeeling","kbqb"],
-#        "europe" : ["espana organica","mihai eminescu trust"],
-#        "latin america" : ["aprosacao","frajianes","la giorgia","pintze","jubilacion segura","alto huayabamba","cfp","cauca y narino"]
-#    }
-
 #requêtes d'insertion
 cur_insert_file = conn.cursor()
 cur_insert_track = conn.cursor()
 cur_insert_geom = conn.cursor()
-q_insert_file_historicaldata = "INSERT INTO \"HistoricalData\".gpsextfiles(projectid, name, filejson, dateinsert) VALUES (%s, %s, %s, %s) RETURNING id;"
-q_insert_track_historicaldata = "INSERT INTO \"HistoricalData\".gpsexttracks(fileid, trackid, gpsname, gps) VALUES (%s, %s, %s, %s) RETURNING id;"
-q_insert_geom_historicaldata = "INSERT INTO \"HistoricalData\".gps(parcelwaveid, gpsexttrackid, isgpsodk, geom) VALUES (%s, %s, %s, %s);".replace("'NULL'","NULL")
+q_insert_file_historicaldata = "INSERT INTO \"HistoricalData\".gpsextfiles2(projectid, projectwaveid, name, filejson, dateinsert) VALUES (%s, %s, %s, %s, %s) RETURNING id;"
+q_insert_track_historicaldata = "INSERT INTO \"HistoricalData\".gpsexttracks2(fileid, trackid, gpsname, gps) VALUES (%s, %s, %s, %s) RETURNING id;"
+q_insert_geom_historicaldata = "INSERT INTO \"HistoricalData\".gps2(parcelwaveid, gpsexttrackid, isgpsodk, geom) VALUES (%s, %s, %s, %s);".replace("'NULL'","NULL")
 
-q_insert_file_prod = "INSERT INTO gpsextfiles(projectid, name, filejson, dateinsert) VALUES (%s, %s, %s, %s) RETURNING id;"
+q_insert_file_prod = "INSERT INTO gpsextfiles(projectid, name, filejson, dateinsert, projectwaveid) VALUES (%s, %s, %s, %s, %s) RETURNING id;"
 q_insert_track_prod = "INSERT INTO gpsexttracks(fileid, trackid, gpsname, gps) VALUES (%s, %s, %s, %s) RETURNING id;"
 q_insert_geom_prod = "INSERT INTO gps(parcelwaveid, gpsexttrackid, isgpsodk, geom) VALUES (%s, %s, %s, %s);".replace("'NULL'","NULL")
 
 
 try :
-    for i in dirs_to_insert :
-        
-        pbar = tqdm(os.listdir(i))
+    for dirs in dirs_to_insert :
+        list1 = dirs.split("\\")[2:]
+        list2 = [x.split('_')[0] for x in list1]
 
-        for files in pbar :
-            print(i + files)
-            pbar.set_description(f'Processing {regionname}-{projectname}-{wavename}-{files}')
+        regionid = list2[0]
+        projectid = list2[1]
+        subprojectid = list2[2]
+        waveid = list2[3]
+
+        if waveid != 'X' :
+            projectwaveid = df_projectwaves[(df_projectwaves['subprojectid'] == int(subprojectid))&(df_projectwaves['waveid'] == int(waveid))].iloc[0]["id"]
+            projectwaveid = int(projectwaveid)
+        else :
+            projectwaveid = None
+        
+        ###################################################################################################################################
+        #until here, we've opened a folder, got the ids from region, project, subproject, wave and projectwave to which the folder belongs#
+        ###################################################################################################################################
+
+        for files in os.listdir(dirs) :
+            print(os.path.join(dirs,files))
 
             filename = files #FILENAME
 
@@ -135,37 +141,49 @@ try :
             gpx_test = files.lower().endswith('.gpx')
             xml_test = files.lower().endswith('.xml')
             kml_test = files.lower().endswith('.kml')
-            file = root + files
+            file = os.path.join(dirs,files)
 
             if gpx_test :
                 #find the right gpx layer
                 list_layers = ['routes', 'tracks']
-                list_size_layers = list(len(list(fiona.open(file, layer = x))) for x in list_layers) #Get the number of elements of each layers
+                with fiona.open(file, layer = 'routes') as routes :
+                    routes_len = len(list(routes))
+                    print(routes_len)
+
+                with fiona.open(file, layer = 'tracks') as tracks :
+                    tracks_len = len(list(tracks))
+                    print(tracks_len)
+
+                list_size_layers = [routes_len, tracks_len]
                 min_value = min(x for x in list_size_layers if not x==0) #Find the minimum value that is not null
                 layer_position = list_size_layers.index(min_value) #Get the the position of this minimum
                 layer_selected = list_layers[layer_position] #Get the layer that has this minimum value
 
                 #GPX to dataframe
-                geom_file = fiona.open(file, layer = layer_selected)
+                with fiona.open(file, layer = layer_selected) as geom_file :
+                    file_list = list(geom_file)
+
                 print("file is a GPX")
 
             elif kml_test:
+                with fiona.open(file) as geom_file :
+                    file_list = list(geom_file)
                 
-                geom_file = fiona.open(file)
-                print("file is a KML")
+                #print("file is a KML")
 
             if gpx_test or kml_test :
-                print("ICI")
 
-                file_list = list(geom_file)
-
-                file_json = json.dumps(list(geom_file), ensure_ascii=False) #FILEJSON
+                file_json = json.dumps(file_list, ensure_ascii=False) #FILEJSON creation to be inserted in DB
 
                 if df_gpsextfiles[df_gpsextfiles.filejson == file_json].empty : #check if GPS file doesn't already exist in DB
 
-                    cur_insert_file.execute(q_insert_file_historicaldata, (projectid, filename, file_json, add_date)) #insert GPS file in DB
+                    cur_insert_file.execute(q_insert_file_historicaldata, (projectid, projectwaveid, filename, file_json, add_date)) #insert GPS file in DB
 
                     id_file = cur_insert_file.fetchone()[0] #FILEID
+
+                    ##########################################################################################################################################################
+                    #until here, we've opened a file, check if it's .gpx or .kml, then created a fiona file. Then we've inserted the file info in DB and get back the file id#
+                    ##########################################################################################################################################################
 
                     #Create dataframe containing geometry data
                     for i in file_list :
@@ -185,9 +203,9 @@ try :
                                 geom[0].append(latlong)
                             else :
                                 print("probleme here")
-                                print("REGION : ", region, " - PROJECT :", project, " - FILE: ", files)
-                                print(type(y))
-                                print(i)
+                                print("REGION : ", regionname, " - PROJECT :", projectname, " - FILE: ", files)
+                                print(type(coordinates))
+                                print(coordinates)
 
                         i["geometry"]["coordinates"] = geom
                         i["geometry"]["type"] = 'MultiLineString'
@@ -214,60 +232,73 @@ try :
 
                     #DataFrame to GeoDataFrame
                     gdf = gpd.GeoDataFrame(df_numpoints) #Transform dataFrame intot a geoDataFrame
-                    
-                    pbar2 = tqdm(range(0, gdf.shape[0]))
-                    for files in pbar :
-                        pbar.set_description(f'Processing {region}-{project}-{files}')
-                        
+
+                    ##########################################################################################################################################################
+                    #until here, we've transformed the fiona file into a DataFrame, cleaned the data, filter geometry to avoid points geometry, transformed geometry data to #
+                    #have a Multilinestring WKT format and created a GeoDataFrame from the DataFrame                                                                         #
+                    ##########################################################################################################################################################
+
+                    pbar2 = tqdm(range(0, gdf.shape[0]))   
+
                     for row in pbar2 :
 
                         tracknb = row #TRACKID
 
-                        trackname = gdf.iloc[row]["name"] 
-                        trackname_check = unidecode(trackname) #TRACKNAME
-                        
-                        pbar2.set_description(f'Processing {tracknb}-{trackname}')
+                        trackname = gdf.iloc[row]["name"]
 
-
-                        gps = str(gdf.iloc[row]["geometry"]) #GEOM
-                        if df_gpsexttracks[(df_gpsexttracks.gpsname == trackname_check)&(df_gpsexttracks.gps == gps)].empty :
-
-                            cur_insert_track.execute(q_insert_track_historicaldata, (id_file, tracknb, trackname_check.replace("'",""), gps))
-
-                            gpsextractid = cur_insert_track.fetchone()[0] ###GPS - gpsextrractid###
-                            gpsextractid = int(gpsextractid)
-                            isgpsodk = False
-
-                            trackname_clean = trackname_check.lower().replace('_','').replace(' ','').replace('-','')
-                            parcelwave = df_parcelwave[df_parcelwave["gpsfilename"] == trackname_clean] 
-                            if parcelwave.empty :
-                                parcelwaveid = None
-                            else :
-                                parcelwaveid = parcelwave['id'].iloc[0]
-                                parcelwaveid = int(parcelwaveid) #PARCELWAVEID
-
-                            cur_insert_geom.execute(q_insert_geom_historicaldata, (parcelwaveid, gpsextractid, isgpsodk, gps))
+                        if trackname is None :
+                            pass
                         else :
-                            print("tracks already in DB")
-                            conn.rollback()
+                            trackname_check = unidecode(trackname) #TRACKNAME
+                            
+                            pbar2.set_description(f'Processing {tracknb}-{trackname}')
+
+
+                            gps = str(gdf.iloc[row]["geometry"]) #GEOM
+                            if df_gpsexttracks[(df_gpsexttracks.gpsname == trackname_check)&(df_gpsexttracks.gps == gps)].empty :
+
+                                cur_insert_track.execute(q_insert_track_historicaldata, (id_file, tracknb, trackname_check.replace("'",""), gps))
+
+                                gpsextractid = cur_insert_track.fetchone()[0] ###GPS - gpsextrractid###
+                                gpsextractid = int(gpsextractid)
+                                isgpsodk = False
+
+                                trackname_clean = trackname_check.lower().replace('_','').replace(' ','').replace('-','')
+                                parcelwave = df_parcelwave[df_parcelwave["gpsfilename"] == trackname_clean]
+
+                                if parcelwave.empty :
+                                    #This part is for Europe mainly because for a lot of files, the gpstracksname is actually the name of the file 
+                                    trackname_bis = filename.lower()[:-3].replace('_','').replace(' ','').replace('-','')
+                                    parcelwavebis = df_parcelwave[df_parcelwave["gpsfilename"] == trackname_bis]
+
+                                    if parcelwavebis.empty :
+                                        parcelwaveid = None
+                                    else :
+                                        parcelwaveid = parcelwavebis['id'].iloc[0]
+                                        parcelwaveid = int(parcelwaveid) #PARCELWAVEID
+                                else :
+                                    parcelwaveid = parcelwave['id'].iloc[0]
+                                    parcelwaveid = int(parcelwaveid) #PARCELWAVEID
+
+                                cur_insert_geom.execute(q_insert_geom_historicaldata, (parcelwaveid, gpsextractid, isgpsodk, gps))
+                            else :
+                                print("tracks already in DB")
+                                conn.rollback()
                 else :
                     print("File already in DB")
                     conn.rollback()
 
                 conn.commit()
                 print("OK COMMIT")
-                geom_file.close()
-                print(geom_file.closed)
-                print("OK CLOSE")
-                root_archives = root.replace('tracks','tracks_archives')
+                root_archives = dirs.replace('to_insert','archives')
                 print("OK REPLACE ARCHIVE")
                 os.makedirs(root_archives, exist_ok=True)
                 print("OK MAKE DIR")
-                shutil.move(root + '/' + files, root_archives+files) #Archivage du fichier
+                shutil.move(os.path.join(dirs,files), os.path.join(root_archives,files)) #Archivage du fichier
                 print(files, " has been moved to archives")
                     
 except (Exception, psql.Error) as error :
-    print ("Erreur rencontrée : ", error, ' ', ' ', root,files)
+    print ("Erreur rencontrée : ", error, ' ', ' ', i,files)
     conn.rollback
     print(traceback.format_exc())
 finally:
