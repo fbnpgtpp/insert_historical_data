@@ -35,3 +35,4 @@ CREATE TABLE "HistoricalData".gps2 (
 -- "HistoricalData".gps foreign keys
 
 ALTER TABLE "HistoricalData".gps2 ADD CONSTRAINT parcelwaveid_fkey FOREIGN KEY (parcelwaveid) REFERENCES "HistoricalData".parcelwaves(id);
+ALTER TABLE "HistoricalData".gps2 ADD CONSTRAINT gpsexttrackid_fkey FOREIGN KEY (gpsexttrackid) REFERENCES "HistoricalData".gpsexttracks2(id);

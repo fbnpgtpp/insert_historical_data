@@ -35,7 +35,7 @@ print("Connected to DB")
 
 # Define SQL Query
 projectwaves_query = "SELECT * FROM \"HistoricalData\".projectwaves"
-parcelwave_query = "SELECT id, lower(replace(replace(replace(gpsfilename, '_',''),' ',''),'-','')) as gpsfilename FROM \"HistoricalData\".parcelwaves"
+parcelwave_query = "SELECT id, registryid, lower(replace(replace(replace(gpsfilename, '_',''),' ',''),'-','')) as gpsfilename FROM \"HistoricalData\".parcelwaves"
 
 gpsextfiles_query = "SELECT filejson FROM \"HistoricalData\".gpsextfiles2 as g1\
                     join \"HistoricalData\".projects p on g1.projectid = p.id"
@@ -247,7 +247,7 @@ try :
                         trackname = gdf.iloc[row]["name"]
 
                         if trackname is None :
-                            pass
+                            trackname_check = None
                         else :
                             trackname_check = unidecode(trackname) #TRACKNAME
                             
@@ -265,6 +265,7 @@ try :
 
                                 trackname_clean = trackname_check.lower().replace('_','').replace(' ','').replace('-','')
                                 parcelwave = df_parcelwave[df_parcelwave["gpsfilename"] == trackname_clean]
+                                parcelwave=parcelwave.query('registryid == registryid.max()')
 
                                 if parcelwave.empty :
                                     #This part is for Europe mainly because for a lot of files, the gpstracksname is actually the name of the file 
